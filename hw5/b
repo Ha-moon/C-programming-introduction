@@ -1,0 +1,30 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Person {
+private :
+	string name;
+	int x;
+	int y;
+public:
+	Person(string k, int a, int b) { name=k; x = a; y = b; }
+	void Print() { cout << name << " is " << x << "cm tall and weighs " << y << "kg." << endl; }
+	void Change(int new_a, int new_b) { x = new_a; y = new_b; }
+	~Person() { cout<< name <<" died" << endl; }
+
+
+};
+
+int main(void)
+{
+	Person P1("Kim Byung-Gi", 180, 70);
+	Person P2("Park Hye-Young", 160, 50);
+
+	P1.Print();
+	P2.Print();
+	P1.Change(185, 75);
+	P1.Print();
+
+	return 0;
+}
