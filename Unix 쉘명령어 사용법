@@ -1,0 +1,108 @@
+<새 directory 만들기>
+mkdir dir1 : 새로운 디렉토리 dir1을 만듬 [make directory]
+(참고) directory(디렉토리) = folder(폴더)
+
+<working directory에 무슨 file들이 있나 보기>
+ls -l : long option으로 자세히 볼 수 있음 [list long]
+참고: working directory = current directory(현 디렉토리)
+login 직후에는 사용자의 login directory가 working directory가 됨
+
+<working directory를 옮기기 [change directory]>
+cd dirl : 현 디렉토리밑의 디렉토리 dirl로 간다.
+cd.. : 현 디렉토리 바로 위의 디렉토리로 간다.
+참고: dot dot(..)은 상위 디렉토리, dot(.)은 현 디렉토리를 의미함
+
+<word processor 사용>
+vi f1 : file f1을 편집한다(vi 사용법 참조)
+
+<c+ + 컴파일러 사용>
+g++ -o hwl hwl.cpp : hw1.cpp를 컴파일하여 동작 가능한 프로그램 hw1을 제작
+
+<c 컴파일러 사용>
+cc -o hwl hw1.c : hw1.c를 컴파일하여 동작 가능한 프로그램 hw1을 제작
+참고: cc의 option들
+math library : -lm      lex library : -ll       pthread : -lpthread
+예: -lm 사용 시, 원시화일에 #include <math.h>를 포함해야 함
+
+<file 복사>
+cp f1 f2 : file f1을 복사하여 f2를 만듬 [copy]
+
+<file 제거>
+file f1 : f1을 제거 [remove]
+rm f1* : 이름이 f1로 시작되는 모든 file들을 제거
+rm -rf f1 : 파일 f1을 묻지 말고 제거(recursive force) f1이 디렉토리면 subdirectory포함 모두 지운다.
+
+<file 이름 바꾸기>
+mv f1 f2 : file f1의 이름을 f2로 바꾼다. [move]
+
+<file 내용 보기>
+cat f1 : file f1의 내용이 화면에 출력된다.
+
+<화일의 앞이나 뒤 일부분을 출력하기>
+head file : file의 앞 부분 10줄을 출력한다.
+tail file : file의 뒷 부분 10줄을 출력한다.
+head -n file : file의 앞부분 n줄을 출력한다(n은 숫자).
+tail -n file : file의 뒷부분 n줄을 출력한다. (사용예) head -5 file : 앞의 5 줄을 출력한다.
+
+<redirection>
+prog < f1 : 표준입력을 키보드 대신 f1에서 받는다.
+prog > f2 : 표준출력을 화면대신 f2로 내보낸다.
+
+<파이프기능: 앞process의 표준출력을 뒤 process가 입력받아 동작>
+ls -l \ more : ls -l 의 표준출력이 more의 표준입력이 됨.
+
+<예를 통한 makefile 사용법>
+[가정1] 가령 aa.cpp와 bb.cpp의 두 개의 file이 있다. main함수는 bb.cpp에 들어 있다. 동작 가능한 프로그램 bm을 만들자.
+[가정2] -먀T 함수를 가지고 있는 cm.cpp를 컴파일/링크하여 동작 가능한 프로그램 cm을 만들자.
+(방법1)
+g++ -o bm bb.cpp aa.cpp
+g++ -o cm cm.cpp
+(방법2)
+(a) 일단 다음과 같은 내용의 화일 makefile을 제작한다.
+bm:   bb.o aa.o
+      g++ -o bm bb.o aa.o
+cm:   cm.o
+      g++ -o cm cm.o
+[참고] makefile내의 의존성은 분리컴파일 된 .o 파일을 이용하면 됨.
+위의 makefile란 아스키 화일을 만든 후 셀 프롬프트에서 (b) 'make' 또는 'make bm' 하면 bm이 제작된다. 'make cm'하면 cm이 제작된다.
+
+<과제 제출(홍대 컴공과에만 있는 명령어)>
+submit lee hwl : 현 디렉토리의 모든 file들을 lee에게 과제명 hw1으로 제출한다.
+
+[UNIX 에디터 vi의 사용법]: 파일 prog1.cpp라 가정
+[prog1.cpp를 편집하려면?]
+(1) vi prog1.cpp를 입력한다. prog1.cpp가 이미 존재하면 그 파일을 읽어 들여오고, 새 ile이면 빈 초기화면이 뜬다.
+    vi 는 command 모드와 edit 모드의 두 상태 중 한 상태로 존재하며, 처음 vi 초기화면은 command mode에 있다.
+(2) a를 친다. 이제 command 모드에서, edit 모드로 바뀐다.
+(3) 자료를 입력하고 수정한다.
+(4) 자료 입력이 끝나면 Esc를 눌러 command모드로 바꾼다.
+(5) ZZ, (또는 :wq!)로 저장하고 vi를 종료한다.
+
+[참고1]command 모드의 명령(다음중 a, i. 0의 경우는 edit모드로 바꾸어 입력가능하게 해주면, 다시 command 모드로 돌아오려면 ESC를 누른다.)
+i : 현 커서 전 위치부터 입력된다(insert).
+a : 현 커서 다음 위치부터 입력된다(add).
+o : 현 커서 위치 다음 줄에 입력된다(open).
+0 : 현 커서 위치 전 줄에 입력된다.
+x : 한 문자 삭제
+dd : 현재 줄 삭제(1line delete)
+ndd : n개의 줄 삭제(line delete). (사용예) 5dd : 현재 줄부터 5개의 줄 삭제
+ZZ(또는 :wq) : file 저장 후 vi벗어남
+:w file : file에 [생략시 현재 이름으로] 저장(write)한다.
+          [주의] w대신 w!로 사용하면 덮어쓰기를 함
+:a, bw file : 줄 a에서 b까지를 파일 file에 저장(write)한다. (사용예) 3, 7w! tmp1 : line 3-7을 tmpl에 저장한다.
+               [참고] m으로 $를 사용하면 마지막 줄의 의미 (예) 3,$w! tmpl
+:a, bmp file : 줄 a에서 b까지를 p째줄 다음으로 옮기시오(move). (사용예) 3, 7m15 : line 3-7을 현재의 line 15다음으로 옮긴다.
+:n, ms/ some/any/g : 줄n~m에서 some을 모두 any로 바꾸시오. (사용예) 3,7s/petty/big/g : line 3~7에서 petty를 big으로 바꾸시오.
+                                                                 1, $s/petty/big/g 프로그램 전체에서 petty를 big으로 바꾸시오.
+:j : 다음 줄을 현재 줄 뒤에 붙여(ioin) 한 줄로 만든다.
+:r file : file이란 file을 커서 다음 줄로 읽어 들인다(read).
+:q : vi를 벗어난다(quit).
+:q! : 저장하지 않고 vi를 벗어난다.
+:set number : 줄번호가 표시된다.
+
+[참고2]커서의 이동 : 키보드의 h(좌), j(아래), k(위), l(우)
+[참고3]edit 모드에서의 탈출 : Esc를 누르면 command 모드로 돌아감
+[참고4]vi 관련된 문제 발생 시 비상수단 3가지:
+1. 한글 사용 중이면 영어로 전환해야 command가 동작한다.
+2. command mode에서 :w! 로 저장을 시도한다.
+3. Linux 명령어 rm .*.swp 으로 vi가 만든 임시 파일을 제거한다.
