@@ -1,0 +1,14 @@
+#include <stdio.h>
+ void func() {
+	        int cnt1 = 0;
+	        static int cnt2 = 0;
+	        cnt1++; printf("cnt1=%d; ", cnt1);
+	        cnt2++; printf("cnt2=%d\n", cnt2);
+
+}
+int main(void)
+{
+
+	func();
+	func();
+	func();}
